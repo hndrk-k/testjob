@@ -3,7 +3,7 @@
     "kind": "Job",
     "metadata": {
         "labels": {
-            "job-name": "PLACEHOLDER"
+            "special-label": "SUPER_IMPORTANT_INFO"
         },
         "name": "PLACEHOLDER",
         "namespace": "test-ns-1"
@@ -15,14 +15,15 @@
         "template": {
             "metadata": {
                 "labels": {
-                    "job-name": "PLACEHOLDER"
+                    "special-label": "SUPER_IMPORTANT_INFO"
                 }
             },
             "spec": {
                 "containers": [
                     {
                         "command": [
-                            "/workdir/scripts/wrapper.sh"
+                            "java",
+                            "/java.jar"
                         ],
                         "env": [
                             {
@@ -38,12 +39,32 @@
                         "terminationMessagePolicy": "File",
                         "volumeMounts": [
                             {
-                                "mountPath": "/workdir",
-                                "name": "workdir"
-                            },
+                                "mountPath": "/external",
+                                "name": "external-volume"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "not-beta-sidecar",
+                        "image": "bash:5.1.8",
+                        "command": [
+                            "/bin/sh",
+                            "-c"
+                        ],
+                        "args": [
+                            "sleep 20"
+                        ],
+                        "env": [
                             {
-                                "mountPath": "/workdir/scripts",
-                                "name": "scripts"
+                                "name": "SPECIAL_SIDECAR",
+                                "value": "SPECIAL_ENV"
+                            }
+                        ],
+                        "resources": {},
+                        "volumeMounts": [
+                            {
+                                "name": "external-volume",
+                                "mountPath": "/external"
                             }
                         ]
                     }
@@ -51,7 +72,7 @@
                 "volumes": [
                     {
                         "emptyDir": {},
-                        "name": "workdir"
+                        "name": "external-volume"
                     }
                 ]
             }
