@@ -23,7 +23,7 @@
                     {
                         "command": [
                             "java",
-                            "/java.jar"
+                            "/job/hello_world.java"
                         ],
                         "env": [
                             {
@@ -31,7 +31,7 @@
                                 "value": "Hello!"
                             }
                         ],
-                        "image": "alpine:3",
+                        "image": "183951883603.dkr.ecr.eu-central-1.amazonaws.com/java_job:0.0.1",
                         "imagePullPolicy": "IfNotPresent",
                         "name": "job",
                         "resources": {},
