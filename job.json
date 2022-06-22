@@ -22,8 +22,11 @@
                 "containers": [
                     {
                         "command": [
-                            "java",
-                            "/java.jar"
+                            "/bin/sh",
+                            "-c"
+                        ],
+                        "args": [
+                            "sleep 1"
                         ],
                         "env": [
                             {
@@ -52,7 +55,7 @@
                             "-c"
                         ],
                         "args": [
-                            "sleep 20"
+                            "sleep 5"
                         ],
                         "env": [
                             {
